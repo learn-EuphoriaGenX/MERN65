@@ -1,13 +1,12 @@
-import Campa from "./Campa"
+import React from 'react'
+import Home from './pages/Home'
 
 function App() {
   return (
-    <div className="bg-red-300 flex gap-3 text-green-900">
-      hello
-      {Campa()}
-      <Campa />
-      <Campa></Campa>
+    <div>
+      <Home />
     </div>
   )
 }
+
 export default App
