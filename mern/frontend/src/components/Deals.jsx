@@ -25,8 +25,8 @@ function Deals() {
     <div className="p-4">
       {/* Header */}
       <div className="flex justify-between items-center border-b pb-2 mb-4">
-        <div className="border-b-2 border-cyan-500 font-semibold">
-          Grab the best deal on Products
+        <div className="border-b-2 border-cyan-500 font-semibold text-xl">
+          Grab the best deal on <span className='font-bold text-blue-500'>Best Products</span>
         </div>
         <div className="flex items-center gap-2 cursor-pointer">
           <span className="text-cyan-500 font-medium">View All</span>

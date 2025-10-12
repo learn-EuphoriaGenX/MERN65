@@ -8,6 +8,7 @@ import list from '../assets/list.png'
 import user from '../assets/user.png'
 import buy from '../assets/buy.png'
 import arrow from '../assets/Arrow.png'
+import { Link } from 'react-router-dom'
 
 function Header() {
     const categories = [
@@ -45,10 +46,12 @@ function Header() {
             {/* Main Header */}
             <div className="flex flex-wrap items-center justify-between px-6 py-3">
                 {/* Logo & Menu */}
-                <div className="flex items-center gap-3">
-                    <img src={menu} alt="menu" className="w-8 h-8 cursor-pointer hover:scale-105 transition" />
-                    <span className="text-2xl font-bold text-blue-600">MegaMart</span>
-                </div>
+                <Link to="/">
+                    <div className="flex items-center gap-3">
+                        <img src={menu} alt="menu" className="w-8 h-8 cursor-pointer hover:scale-105 transition" />
+                        <span className="text-2xl font-bold text-blue-600">MegaMart</span>
+                    </div>
+                </Link>
 
                 {/* Search Bar */}
                 <div className="flex items-center w-full md:w-1/2 bg-gray-100 rounded-full px-4 py-2 shadow-inner">
@@ -63,13 +66,15 @@ function Header() {
 
                 {/* User & Cart */}
                 <div className="flex items-center gap-6">
-                    <div className="flex items-center gap-2 cursor-pointer hover:text-blue-600 transition">
-                        <img src={user} alt="user" className="w-6 h-6" />
-                        <span className="font-medium text-gray-700">Sign In / Sign Up</span>
-                    </div>
+                    <Link to="/signin">
+                        <div className="flex items-center gap-2 cursor-pointer hover:text-blue-600 transition">
+                            <img src={user} alt="user" className="w-6 h-6" />
+                            <span className="font-medium text-gray-700">Sign In / Sign Up</span>
+                        </div>
+                    </Link>
                     <div className="flex items-center gap-2 cursor-pointer hover:text-blue-600 transition">
                         <img src={buy} alt="cart" className="w-6 h-6" />
-                        <span className="font-medium text-gray-700">Cart</span>
+                        <span className="font-medium text-gray-700">Sell Product</span>
                     </div>
                 </div>
             </div>
