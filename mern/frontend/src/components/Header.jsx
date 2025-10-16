@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import location from '../assets/Location.png'
 import truck from '../assets/truck.png'
 import discount from '../assets/Discount.png'
@@ -8,18 +8,32 @@ import list from '../assets/list.png'
 import user from '../assets/user.png'
 import buy from '../assets/buy.png'
 import arrow from '../assets/Arrow.png'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import axios from 'axios'
 
-function Header() {
-    const categories = [
-        'Computers',
-        'Mobiles',
-        'Properties',
-        'Fashion',
-        'Sports, Toys & Luggage',
-        'Home & Kitchen',
-        'Electronics'
-    ]
+function Header({ setItem }) {
+
+    let location = useLocation()
+
+    let [category, setCategory] = useState([])
+
+    let fetchCategories = async () => {
+        try {
+            let res = await axios.get('https://dummyjson.com/products/categories')
+            setCategory(res.data);
+        } catch (error) {
+            alert(error.messages)
+        }
+    }
+
+    let handleClickCategory = (item) => {
+        setItem(item);
+        fetchCategories()
+    }
+
+    useEffect(() => {
+        fetchCategories()
+    }, [])
 
     return (
         <nav className="w-full shadow-sm bg-white">
@@ -79,19 +93,22 @@ function Header() {
                 </div>
             </div>
 
-            {/* Category Bar */}
-            <div className="flex flex-wrap items-center justify-center gap-6 py-3 border-t border-b bg-sky-50 text-gray-700 text-sm font-medium">
-                {categories.map((item, idx) => (
-                    <div
-                        key={idx}
-                        className="flex items-center gap-1 px-2 py-1 hover:text-gray-600 cursor-pointer transition"
-                    >
-                        <span>{item}</span>
-                        <img src={arrow} alt="arrow" className="w-4 h-4" />
-                    </div>
-                ))}
-            </div>
-        </nav>
+            {
+                location.pathname !== '/products' &&
+                < div className="flex flex-wrap items-center justify-center gap-6 py-3 border-t border-b bg-sky-50 text-gray-700 text-sm font-medium">
+                    {category.length > 0 && category?.splice(0, 10).map((item, idx) => (
+                        <div
+                            onClick={() => handleClickCategory(item)}
+                            key={idx}
+                            className="flex items-center gap-1 px-2 py-1 hover:text-gray-600 cursor-pointer transition"
+                        >
+                            <span>{item.slug}</span>
+                            <img src={arrow} alt="arrow" className="w-4 h-4" />
+                        </div>
+                    ))}
+                </div>
+            }
+        </nav >
     )
 }
 

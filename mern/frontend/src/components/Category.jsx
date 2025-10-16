@@ -8,6 +8,7 @@ import sofa from '../assets/sofa.png'
 import wash from '../assets/wash.png'
 import watch from '../assets/watch.png'
 import cream from '../assets/cream.png'
+import { Link } from 'react-router-dom';
 
 
 function Category() {
@@ -50,7 +51,9 @@ function Category() {
           Shop from <span className='font-bold text-blue-500'>Top Categories</span>
         </div>
         <div className="flex items-center gap-2 cursor-pointer">
-          <span className="text-cyan-500 font-medium">View All</span>
+          <Link to={"/products"}>
+            <span className="text-cyan-500 font-medium">View All</span>
+          </Link>
           <img src={left} alt="arrow" className="rotate-180 w-4 h-4" />
         </div>
       </div>

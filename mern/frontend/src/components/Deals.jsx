@@ -2,14 +2,15 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import left from '../assets/l-arrow.png';
 import ProductCard from './ProductCard';
+import { Link } from 'react-router-dom';
 
-function Deals() {
+function Deals({ item }) {
   const [products, setProducts] = useState([]);
 
-  async function fetchDeals() {
+  async function fetchDeals(url) {
     try {
-      const { data } = await axios.get('https://dummyjson.com/products');
-      const topProducts = data.products.slice(0, 6);
+      const { data } = await axios.get(url);
+      const topProducts = data?.products?.slice(0, 6);
       setProducts(topProducts);
       console.log(topProducts);
     } catch (error) {
@@ -18,8 +19,12 @@ function Deals() {
   }
 
   useEffect(() => {
-    fetchDeals();
+    fetchDeals('https://dummyjson.com/products');
   }, []);
+
+  useEffect(() => {
+    fetchDeals(item.url);
+  }, [item]);
 
   return (
     <div className="p-4">
@@ -29,14 +34,16 @@ function Deals() {
           Grab the best deal on <span className='font-bold text-blue-500'>Best Products</span>
         </div>
         <div className="flex items-center gap-2 cursor-pointer">
-          <span className="text-cyan-500 font-medium">View All</span>
+          <Link to={"/products"}>
+            <span className="text-cyan-500 font-medium">View All</span>
+          </Link>
           <img src={left} alt="arrow" className="rotate-180 w-4 h-4" />
         </div>
       </div>
 
       {/* Product List */}
       <div className="flex gap-4 overflow-x-auto">
-        {products.map((item, idx) => (
+        {products?.map((item, idx) => (
           <ProductCard
             key={idx}
             name={item.title}
