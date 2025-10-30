@@ -1,4 +1,5 @@
 module.exports.register = (req, res) => {
+    console.log(req.body);
     return res.send({ message: "This is register Route", success: true })
 }
 module.exports.login = (req, res) => {
